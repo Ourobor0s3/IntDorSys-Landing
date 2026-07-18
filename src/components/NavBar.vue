@@ -19,7 +19,7 @@ function scrollTo(id: string) {
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 
-onMounted(() => window.addEventListener('scroll', onScroll))
+onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
 onUnmounted(() => window.removeEventListener('scroll', onScroll))
 </script>
 
@@ -30,8 +30,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         <svg width="32" height="32" viewBox="0 0 48 48">
           <defs>
             <linearGradient id="navLogo" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#667eea"/>
-              <stop offset="100%" stop-color="#764ba2"/>
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#a855f7"/>
             </linearGradient>
           </defs>
           <circle cx="24" cy="24" r="24" fill="url(#navLogo)"/>
@@ -40,9 +40,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         <span class="navbar__brand">IntDorSys</span>
       </a>
 
-      <div class="navbar__toggler" @click="isMenuOpen = !isMenuOpen">
+      <button class="navbar__toggler" @click="isMenuOpen = !isMenuOpen" :aria-label="isMenuOpen ? 'Close menu' : 'Open menu'" :aria-expanded="isMenuOpen">
         <span></span><span></span><span></span>
-      </div>
+      </button>
 
       <div class="navbar__menu" :class="{ 'navbar__menu--open': isMenuOpen }">
         <a class="navbar__link" href="#features" @click.prevent="scrollTo('features')">{{ t('nav.features') }}</a>
@@ -66,14 +66,17 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   right: 0;
   z-index: 100;
   padding: 16px 0;
-  transition: all 0.3s;
-  background: transparent;
+  transition: background var(--transition-normal), padding var(--transition-normal), box-shadow var(--transition-normal), backdrop-filter var(--transition-normal);
+  background: var(--bg-nav);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
 }
 .navbar--scrolled {
   background: var(--bg-nav);
-  backdrop-filter: blur(12px);
   padding: 10px 0;
   box-shadow: var(--shadow);
+  border-bottom-color: var(--border);
 }
 .navbar__inner {
   display: flex;
@@ -103,12 +106,28 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   color: var(--text-secondary);
   font-weight: 500;
   font-size: 0.95rem;
-  transition: color 0.2s;
+  transition: color var(--transition-fast);
   cursor: pointer;
   text-decoration: none;
+  position: relative;
+  padding: 4px 0;
+}
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient);
+  border-radius: 2px;
+  transition: width var(--transition-normal);
 }
 .navbar__link:hover {
   color: var(--primary);
+}
+.navbar__link:hover::after {
+  width: 100%;
 }
 .navbar__actions {
   display: flex;
@@ -122,13 +141,27 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   gap: 5px;
   cursor: pointer;
   padding: 4px;
+  background: none;
+  border: none;
+  font-family: inherit;
 }
 .navbar__toggler span {
+  display: block;
   width: 24px;
   height: 2px;
   background: var(--text-primary);
   border-radius: 2px;
-  transition: 0.3s;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  transform-origin: center;
+}
+.navbar__toggler[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar__toggler[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.navbar__toggler[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 @media (max-width: 768px) {
   .navbar__toggler { display: flex; }
@@ -136,12 +169,15 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
+    left: 8px;
+    right: 8px;
     flex-direction: column;
     background: var(--bg-nav);
-    backdrop-filter: blur(12px);
-    padding: 20px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
     gap: 20px;
     box-shadow: var(--shadow-lg);
   }

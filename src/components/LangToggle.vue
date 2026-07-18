@@ -12,12 +12,14 @@ function toggle() {
 </script>
 
 <template>
-  <button class="lang-toggle" @click="toggle">{{ label }}</button>
+  <button class="lang-toggle" @click="toggle" :aria-label="`Switch to ${label}`">{{ label }}</button>
 </template>
 
 <style scoped>
 .lang-toggle {
-  background: var(--bg-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--text-primary);
   border: 1px solid var(--border);
   border-radius: 50%;
@@ -26,7 +28,7 @@ function toggle() {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +37,7 @@ function toggle() {
 .lang-toggle:hover {
   border-color: var(--primary);
   color: var(--primary);
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 0 12px var(--primary-glow);
 }
 </style>

@@ -22,38 +22,61 @@ function show(v: AdminView) { adminView.value = v }
 <template>
   <section id="bot" class="section bot-section">
     <div class="container">
-      <h2 class="section-title">{{ t('bot.section_title') }}</h2>
-      <p class="section-subtitle">{{ t('bot.section_subtitle') }}</p>
+      <h2 class="section-title reveal">{{ t('bot.section_title') }}</h2>
+      <p class="section-subtitle reveal reveal--delay-1">{{ t('bot.section_subtitle') }}</p>
 
       <div class="bot-section__grid">
-        <div class="bot-section__info">
-          <h3 class="bot-section__info-title">{{ t('bot.commands_title') }}</h3>
-          <div class="bot-section__commands">
-            <div v-for="(c, i) in commands" :key="i" class="bot-section__cmd">
-              <code class="bot-section__cmd-code">{{ c.cmd }}</code>
-              <span class="bot-section__cmd-desc">{{ locale === 'ru' ? c.descRu : c.descEn }}</span>
+        <div class="bot-section__info reveal">
+
+          <div class="bot-section__card card">
+            <h3 class="bot-section__card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              {{ t('bot.commands_title') }}
+            </h3>
+            <div class="bot-section__commands">
+              <div v-for="(c, i) in commands" :key="i" class="bot-section__cmd">
+                <span class="bot-section__cmd-slash">/</span>
+                <code class="bot-section__cmd-code">{{ c.cmd.slice(1) }}</code>
+                <span class="bot-section__cmd-desc">{{ locale === 'ru' ? c.descRu : c.descEn }}</span>
+              </div>
             </div>
           </div>
 
-          <h3 class="bot-section__info-title" style="margin-top: 32px;">{{ t('bot.menu_title') }}</h3>
-          <div class="bot-section__menu-layout">
-            <div class="bot-section__menu-group">
-              <div class="bot-section__menu-group-title">👤 {{ t('bot.tab_user') }}</div>
-              <div class="bot-section__btn-row"><span class="bot-section__btn-sample">{{ t('bot.btn_book') }}</span></div>
-              <div class="bot-section__btn-row"><span class="bot-section__btn-sample">{{ t('bot.btn_my') }}</span></div>
-            </div>
-            <div class="bot-section__menu-group">
-              <div class="bot-section__menu-group-title">🛡️ {{ t('bot.tab_admin') }}</div>
-              <div class="bot-section__btn-row"><span class="bot-section__btn-sample">{{ t('bot.btn_book') }}</span></div>
-              <div class="bot-section__btn-row"><span class="bot-section__btn-sample">{{ t('bot.btn_my') }}</span></div>
-              <div class="bot-section__btn-row"><span class="bot-section__btn-sample">{{ t('bot.btn_all') }}</span></div>
-              <div class="bot-section__btn-row"><span class="bot-section__btn-sample">{{ t('bot.btn_access') }}</span></div>
-              <div class="bot-section__btn-row"><span class="bot-section__btn-sample">{{ t('bot.btn_no_access') }}</span></div>
+          <div class="bot-section__card card" style="margin-top: 24px;">
+            <h3 class="bot-section__card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              {{ t('bot.menu_title') }}
+            </h3>
+            <div class="bot-section__menu-layout">
+              <div class="bot-section__menu-group">
+                <div class="bot-section__menu-group-title">
+                  <span class="bot-section__menu-group-icon">👤</span>
+                  {{ t('bot.tab_user') }}
+                </div>
+                <div class="bot-section__menu-buttons">
+                  <span class="bot-section__menu-btn">{{ t('bot.btn_book') }}</span>
+                  <span class="bot-section__menu-btn">{{ t('bot.btn_my') }}</span>
+                </div>
+              </div>
+              <div class="bot-section__menu-divider"></div>
+              <div class="bot-section__menu-group">
+                <div class="bot-section__menu-group-title">
+                  <span class="bot-section__menu-group-icon">🛡️</span>
+                  {{ t('bot.tab_admin') }}
+                </div>
+                <div class="bot-section__menu-buttons">
+                  <span class="bot-section__menu-btn">{{ t('bot.btn_book') }}</span>
+                  <span class="bot-section__menu-btn">{{ t('bot.btn_my') }}</span>
+                  <span class="bot-section__menu-btn">{{ t('bot.btn_all') }}</span>
+                  <span class="bot-section__menu-btn">{{ t('bot.btn_access') }}</span>
+                  <span class="bot-section__menu-btn bot-section__menu-btn--danger">{{ t('bot.btn_no_access') }}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="bot-section__phone-wrapper">
+        <div class="bot-section__phone-wrapper reveal reveal--delay-2">
           <div class="phone-tabs">
             <button
               class="phone-tab"
@@ -81,7 +104,7 @@ function show(v: AdminView) { adminView.value = v }
               <svg class="phone__back" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
               <div class="phone__chat-avatar">
                 <svg width="26" height="26" viewBox="0 0 48 48">
-                  <defs><linearGradient id="bav4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#667eea"/><stop offset="100%" stop-color="#764ba2"/></linearGradient></defs>
+                  <defs><linearGradient id="bav4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
                   <circle cx="24" cy="24" r="24" fill="url(#bav4)"/>
                   <path d="M24 8 C27 14 36 22 36 30 C36 36 31 40 24 40 C17 40 12 36 12 30 C12 22 21 14 24 8 Z" fill="#fff"/>
                 </svg>
@@ -258,58 +281,122 @@ function show(v: AdminView) { adminView.value = v }
   gap: 60px;
   align-items: center;
 }
-.bot-section__info { flex: 1; }
-.bot-section__info-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 16px;
+.bot-section__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
+.bot-section__card {
+  padding: 28px;
+}
+.bot-section__card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+}
+.bot-section__card-title svg {
+  color: var(--primary);
+  opacity: 0.8;
+}
+
+/* Commands */
 .bot-section__commands {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 .bot-section__cmd {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+.bot-section__cmd-slash {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: 'SF Mono', 'Roboto Mono', monospace;
+  opacity: 0.7;
+  min-width: 10px;
+  text-align: right;
 }
 .bot-section__cmd-code {
-  background: var(--bg-card-hover);
-  padding: 4px 10px;
-  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+  padding: 4px 12px;
+  border-radius: 8px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--primary);
-  min-width: 95px;
+  min-width: 80px;
   text-align: center;
   font-family: 'SF Mono', 'Roboto Mono', monospace;
+  border: 1px solid rgba(99, 102, 241, 0.15);
 }
 .bot-section__cmd-desc {
   font-size: 0.92rem;
   color: var(--text-secondary);
 }
+
+/* Menu buttons */
 .bot-section__menu-layout {
   display: flex;
-  gap: 24px;
+  gap: 0;
+  align-items: stretch;
 }
-.bot-section__menu-group { flex: 1; }
+.bot-section__menu-group {
+  flex: 1;
+  padding: 0 8px;
+}
 .bot-section__menu-group-title {
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: var(--text-secondary);
-}
-.bot-section__btn-row { margin-bottom: 6px; }
-.bot-section__btn-sample {
-  display: inline-block;
-  background: var(--bg-card-hover);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 6px 14px;
   font-size: 0.82rem;
-  white-space: nowrap;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+.bot-section__menu-group-icon {
+  font-size: 1rem;
+}
+.bot-section__menu-divider {
+  width: 1px;
+  background: var(--border);
+  margin: 0 8px;
+  align-self: stretch;
+}
+.bot-section__menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bot-section__menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: default;
+}
+.bot-section__menu-btn--danger {
+  color: var(--danger);
+}
+
 
 /* Phone wrapper */
 .bot-section__phone-wrapper {
@@ -332,7 +419,9 @@ function show(v: AdminView) { adminView.value = v }
   display: flex;
   gap: 4px;
   margin-bottom: 12px;
-  background: var(--bg-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 3px;
@@ -355,11 +444,17 @@ function show(v: AdminView) { adminView.value = v }
 .phone {
   width: 310px;
   background: var(--bg-body);
-  border-radius: 40px;
-  box-shadow: 0 0 0 1px var(--border), 0 8px 40px rgba(0, 0, 0, 0.12);
+  border-radius: 44px;
+  box-shadow:
+    0 0 0 1px var(--border),
+    0 12px 50px rgba(0, 0, 0, 0.12),
+    0 4px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
+  position: relative;
 }
-.phone__top { padding: 10px 20px 4px; }
+.phone__top {
+  padding: 14px 20px 4px;
+}
 .phone__top-inner {
   display: flex;
   justify-content: space-between;
@@ -412,7 +507,11 @@ function show(v: AdminView) { adminView.value = v }
   align-self: center;
   font-size: 0.62rem;
   color: var(--text-muted);
-  padding: 5px 12px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 4px 14px;
+  border-radius: 10px;
   margin: 2px 0;
 }
 
@@ -441,7 +540,7 @@ function show(v: AdminView) { adminView.value = v }
   background: var(--bg-body);
   color: var(--text-primary);
   border-radius: 15px 15px 15px 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
 }
 [data-bs-theme="dark"] .phone__bubble--bot .phone__bubble-text {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
@@ -500,7 +599,7 @@ function show(v: AdminView) { adminView.value = v }
   background: var(--bg-body);
   color: var(--text-primary);
   border-radius: 15px 15px 15px 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
   font-size: 0.8rem;
   line-height: 1.5;
   word-break: break-word;
@@ -517,7 +616,9 @@ function show(v: AdminView) { adminView.value = v }
 }
 .phone__msg-key {
   display: block;
-  background: transparent;
+  background: var(--glass-bg);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 7px 12px;
@@ -526,14 +627,14 @@ function show(v: AdminView) { adminView.value = v }
   font-weight: 500;
   color: var(--primary);
   cursor: pointer;
-  transition: all 0.12s;
+  transition: all 0.15s;
   font-family: inherit;
   width: 100%;
   box-sizing: border-box;
 }
 .phone__msg-key:hover {
   border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.05);
+  background: rgba(99, 102, 241, 0.08);
 }
 .phone__msg-key--off {
   cursor: default;
@@ -541,7 +642,7 @@ function show(v: AdminView) { adminView.value = v }
 }
 .phone__msg-key--off:hover {
   border-color: var(--border);
-  background: transparent;
+  background: var(--glass-bg);
 }
 .phone__msg-key--back {
   font-size: 0.78rem;
@@ -593,5 +694,6 @@ function show(v: AdminView) { adminView.value = v }
   .bot-section__grid { flex-direction: column; gap: 40px; }
   .phone { width: 100%; max-width: 320px; }
   .bot-section__menu-layout { flex-direction: column; gap: 16px; }
+  .bot-section__menu-divider { width: auto; height: 1px; margin: 8px 0; }
 }
 </style>

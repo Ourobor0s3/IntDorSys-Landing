@@ -14,8 +14,8 @@ const { t } = useI18n()
           <svg width="28" height="28" viewBox="0 0 48 48">
             <defs>
               <linearGradient id="footLogo" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#667eea"/>
-                <stop offset="100%" stop-color="#764ba2"/>
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#a855f7"/>
               </linearGradient>
             </defs>
             <circle cx="24" cy="24" r="24" fill="url(#footLogo)"/>
@@ -45,6 +45,8 @@ const { t } = useI18n()
 <style scoped>
 .footer {
   background: var(--bg-footer);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--border);
   padding: 48px 0 32px;
 }
@@ -78,9 +80,25 @@ const { t } = useI18n()
   color: var(--text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: color var(--transition-fast);
+  position: relative;
 }
-.footer__links a:hover { color: var(--primary); }
+.footer__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gradient);
+  transition: width var(--transition-normal);
+}
+.footer__links a:hover {
+  color: var(--primary);
+}
+.footer__links a:hover::after {
+  width: 100%;
+}
 .footer__bottom {
   text-align: center;
   color: var(--text-muted);

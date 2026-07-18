@@ -14,7 +14,7 @@ watch(theme, (val) => {
 </script>
 
 <template>
-  <button class="theme-toggle" @click="toggle">
+  <button class="theme-toggle" @click="toggle" :aria-label="theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'">
     <svg v-if="theme === 'light'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5" />
       <line x1="12" y1="1" x2="12" y2="3" />
@@ -34,14 +34,16 @@ watch(theme, (val) => {
 
 <style scoped>
 .theme-toggle {
-  background: var(--bg-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--text-primary);
   border: 1px solid var(--border);
   border-radius: 50%;
   width: 40px;
   height: 40px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,6 +52,7 @@ watch(theme, (val) => {
 .theme-toggle:hover {
   border-color: var(--primary);
   color: var(--primary);
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 0 12px var(--primary-glow);
 }
 </style>
